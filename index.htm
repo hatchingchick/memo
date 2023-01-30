@@ -4,7 +4,7 @@
       #note {
         background-color: #233B6E;
         width: 60vw;
-        height: 34.375vw;
+        height: 44.375vw;
         margin: 0 auto;
         padding: 1em;
         color: white;
@@ -17,17 +17,18 @@
         top: 50%;
         transform: translateY(-50%);
       }
-  h1 {
-    font-family: 'cursive';
+css
+Copy code
+  #title {
     font-size: 32px;
-    position: absolute;
-    top: -1.5em;
+    font-family: cursive;
+    margin-bottom: 1em;
   }
 
   #textarea {
     background-color: transparent;
     width: 100%;
-    height: 80%;
+    height: 70%;
     color: white;
     border: none;
     font-size: 1.5em;
@@ -52,10 +53,10 @@
     cursor: pointer;
   }
 </style>
- </head>
+  </head>
   <body style="background-image: url(https://i.gzn.jp/img/2014/11/29/1041uuu-gif/06.gif); background-size: cover;">
     <div id="note">
-      <h1>Leaflet Memo</h1>
+      <div id="title">Leaflet Memo</div>
       <textarea id="textarea" rows="5"></textarea>
       <div id="buttons">
         <button id="copy">copy</button>
@@ -68,6 +69,8 @@
       const copy = document.querySelector("#copy");
       const download = document.querySelector("#download");
       const paste = document.querySelector("#paste");
+javascript
+Copy code
   copy.addEventListener("click", () => {
     textarea.select();
     document.execCommand("copy");
@@ -76,15 +79,16 @@
   download.addEventListener("click", () => {
     const text = textarea.value;
     const blob = new Blob([text], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "LeafletMemo.txt";
-    link.click();
+    const a = document.createElement("a");
+    a.download = "leaflet-memo.txt";
+    a.href = URL.createObjectURL(blob);
+    a.click();
   });
 
   paste.addEventListener("click", () => {
-    textarea.focus();
-    document.execCommand("paste");
+    navigator.clipboard.readText().then(clipText => {
+      textarea.value = clipText;
+    });
   });
 </script>
   </body>
