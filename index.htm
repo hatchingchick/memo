@@ -66,8 +66,9 @@
       });
 
       paste.addEventListener("click", () => {
-        textarea.focus();
-        document.execCommand("paste");
+        navigator.clipboard.readText().then(text => {
+          textarea.value = text;
+        });
       });
     </script>
   </body>
