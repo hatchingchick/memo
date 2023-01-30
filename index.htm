@@ -1,62 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Twitter-style Notepad</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-<style>
-body {
-  background-image: url('https://i.gzn.jp/img/2014/11/29/1041uuu-gif/06.gif');
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-textarea {
-width: 50%;
-height: 50%;
-font-size: 16px;
-padding: 10px;
-border: 1px solid gray;
-resize: none;
-background-color: #233B6;
-color: #FFFFFF;
-}
-
-button {
-margin-top: 10px;
-padding: 10px 20px;
-background-color: lightgray;
-border: 1px solid gray;
-border-radius: 5px;
-cursor: pointer;
-}
-
-</style>
+    <style>
+      body {
+        background-image: url("https://i.gzn.jp/img/2014/11/29/1041uuu-gif/06.gif");
+      }
+      .memo {
+        width: 500px;
+        height: 500px;
+        background-color: #233B6B;
+        color: #ffffff;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #50C878;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin-right: 20px;
+      }
+    </style>
   </head>
   <body>
-    <textarea id="note"></textarea>
-    <button id="copy">Copy</button>
-    <button id="paste">Paste</button>
-    <script src="script.js"></script>
-<script>
-const note = document.getElementById("note");
-const copyBtn = document.getElementById("copy");
-const pasteBtn = document.getElementById("paste");
-copyBtn.addEventListener("click", () => {
-navigator.clipboard.writeText(note.value).then(() => {
-alert("Copied to Clipboard");
-});
-});
-
-pasteBtn.addEventListener("click", () => {
-navigator.clipboard.readText().then(text => {
-note.value = text;
-});
-});
-
-</script>
+    <textarea class="memo"></textarea>
+    <br>
+    <button id="copy-btn">Copy</button>
+    <button id="paste-btn">Paste</button>
+    <script>
+      const memo = document.querySelector(".memo");
+      const copyBtn = document.querySelector("#copy-btn");
+      const pasteBtn = document.querySelector("#paste-btn");
+      copyBtn.addEventListener("click", () => {
+        memo.select();
+        document.execCommand("copy");
+      });
+      pasteBtn.addEventListener("click", () => {
+        memo.focus();
+        document.execCommand("paste");
+      });
+    </script>
   </body>
 </html>
