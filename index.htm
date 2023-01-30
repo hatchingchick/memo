@@ -14,55 +14,47 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 textarea {
-  width: 50%;
-  height: 50%;
-  font-size: 16px;
-  padding: 10px;
-  border: 1px solid gray;
-  resize: none;
-  background-color: #233B6;
-  color: white;
+width: 50%;
+height: 50%;
+font-size: 16px;
+padding: 10px;
+border: 1px solid gray;
+resize: none;
+background-color: #233B6;
+color: #FFFFFF;
 }
 
 button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: lightgray;
-  border: 1px solid gray;
-  border-radius: 5px;
-  cursor: pointer;
+margin-top: 10px;
+padding: 10px 20px;
+background-color: lightgray;
+border: 1px solid gray;
+border-radius: 5px;
+cursor: pointer;
 }
 
 </style>
   </head>
   <body>
     <textarea id="note"></textarea>
+    <button id="copy">Copy</button>
     <button id="paste">Paste</button>
     <script src="script.js"></script>
 <script>
 const note = document.getElementById("note");
+const copyBtn = document.getElementById("copy");
 const pasteBtn = document.getElementById("paste");
-
-pasteBtn.addEventListener("click", () => {
-  navigator.clipboard.readText()
-    .then(text => {
-      note.value += text;
-    })
-    .catch(err => {
-      console.error("Failed to read clipboard contents: ", err);
-    });
+copyBtn.addEventListener("click", () => {
+navigator.clipboard.writeText(note.value).then(() => {
+alert("Copied to Clipboard");
+});
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  navigator.clipboard.readText()
-    .then(text => {
-      note.value = text;
-    })
-    .catch(err => {
-      console.error("Failed to read clipboard contents: ", err);
-    });
+pasteBtn.addEventListener("click", () => {
+navigator.clipboard.readText().then(text => {
+note.value = text;
+});
 });
 
 </script>
